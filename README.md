@@ -1,7 +1,7 @@
 # LoginSliderView
 滑动图形行为验证码
 
-![guide](https://github.com/TestEngineerFish/LoginSliderView/blob/master/LoginSliderView.gif)
+![guide](https://github.com/TestEngineerFish/LoginSliderView/blob/master/SliderView.gif)
 
 使用相当简单，只需要两步：
 
