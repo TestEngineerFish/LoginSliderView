@@ -2,8 +2,8 @@
 //  RegisterSliderView.swift
 //  PanningMan
 //
-//  Created by 喜汇-Lee on 2017/3/9.
-//  Copyright © 2017年 喜汇. All rights reserved.
+//  Created by 老沙-Sam on 2017/3/9.
+//  Copyright © 2017年 老沙. All rights reserved.
 //
 
 import UIKit
@@ -17,8 +17,9 @@ class RegisterSliderView: UIView {
     
     var delegate: RegisterSliderViewDelegate?
     
-    //展示图中阴影的位置
-    var location: CGRect = CGRect.zero
+    /// 展示图中阴影的位置
+    var cutPoint = CGPoint.zero
+    var cutSize  = CGSize(width: 50, height: 50)
     
     //定义一些常量
     let padding: CGFloat = 10.0 //内边距
@@ -203,7 +204,7 @@ class RegisterSliderView: UIView {
         self.resultView.addSubview(self.resultTips)
     }
     
-    func pan(pan: UIPanGestureRecognizer) {
+    @objc func pan(pan: UIPanGestureRecognizer) {
         
         let halfWidth: CGFloat = sliderImgV.frame.width * 0.5
         let point: CGPoint = pan.translation(in: self)
@@ -236,7 +237,7 @@ class RegisterSliderView: UIView {
     }
     
     //    通过验证后的事件
-    func noticeDelegate() {
+    @objc func noticeDelegate() {
         delegate?.sliderViewDidDragToEndPoint()
     }
     
@@ -250,16 +251,14 @@ class RegisterSliderView: UIView {
         })
     }
     
-    //    随机获取图片的位置
-    func randomLocation(with imageView: UIImageView, width: CGFloat, height: CGFloat) -> CGRect {
-        let halfWidth: UInt32 = UInt32(imageView.bounds.size.width / 2)
-        let heightRegion: CGFloat = imageView.bounds.size.height - height - self.resultViewHeight//这里为了用户体验，随机Y轴位置减去结果栏提示的高度
-        let randomX: CGFloat = CGFloat(arc4random() % halfWidth + (halfWidth - UInt32(width)))//这里为了用户体验，随机X轴位置固定在有半边
-        let randomY: CGFloat = CGFloat(arc4random_uniform(UInt32(heightRegion)))
-        return CGRect(x: randomX, y: randomY, width: width, height: height)
+    /// 随机获取图片的位置
+    func randomPoint() -> CGPoint {
+        let randomX = CGFloat(arc4random() % UInt32(self.bounds.width/2) + UInt32(self.bounds.width/2 - cutSize.width))
+        let randomY = CGFloat(arc4random() % UInt32(self.bounds.height/2) + UInt32(self.bounds.height/2 - cutSize.height))
+        return CGPoint(x: randomX, y: randomY)
     }
     
-    //    截取特定区域图片
+    ///    截取特定区域图片
     func cutImage(image: CGImage, rect: CGRect) -> UIImage {
         let scale : CGFloat = UIScreen.main.scale
         let x: CGFloat = rect.origin.x * scale

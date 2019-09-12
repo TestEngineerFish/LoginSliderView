@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22452911232A196500510507 /* CustomSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22452910232A196500510507 /* CustomSliderView.swift */; };
 		9B543F191F4F1A5F001B55CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B543F181F4F1A5F001B55CE /* AppDelegate.swift */; };
 		9B543F1B1F4F1A5F001B55CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B543F1A1F4F1A5F001B55CE /* ViewController.swift */; };
 		9B543F1E1F4F1A5F001B55CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B543F1C1F4F1A5F001B55CE /* Main.storyboard */; };
 		9B543F201F4F1A5F001B55CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B543F1F1F4F1A5F001B55CE /* Assets.xcassets */; };
 		9B543F231F4F1A5F001B55CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B543F211F4F1A5F001B55CE /* LaunchScreen.storyboard */; };
-		9B543F2E1F4F1A5F001B55CE /* LoginSliderViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B543F2D1F4F1A5F001B55CE /* LoginSliderViewTests.swift */; };
-		9B543F391F4F1A5F001B55CE /* LoginSliderViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B543F381F4F1A5F001B55CE /* LoginSliderViewUITests.swift */; };
 		9B543F471F4F1A95001B55CE /* RegisterSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B543F461F4F1A95001B55CE /* RegisterSliderView.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22452910232A196500510507 /* CustomSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSliderView.swift; sourceTree = "<group>"; };
 		9B543F151F4F1A5F001B55CE /* LoginSliderView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginSliderView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B543F181F4F1A5F001B55CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B543F1A1F4F1A5F001B55CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,11 +43,7 @@
 		9B543F221F4F1A5F001B55CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B543F241F4F1A5F001B55CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B543F291F4F1A5F001B55CE /* LoginSliderViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoginSliderViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B543F2D1F4F1A5F001B55CE /* LoginSliderViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSliderViewTests.swift; sourceTree = "<group>"; };
-		9B543F2F1F4F1A5F001B55CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B543F341F4F1A5F001B55CE /* LoginSliderViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoginSliderViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B543F381F4F1A5F001B55CE /* LoginSliderViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSliderViewUITests.swift; sourceTree = "<group>"; };
-		9B543F3A1F4F1A5F001B55CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B543F461F4F1A95001B55CE /* RegisterSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterSliderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,8 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				9B543F171F4F1A5F001B55CE /* LoginSliderView */,
-				9B543F2C1F4F1A5F001B55CE /* LoginSliderViewTests */,
-				9B543F371F4F1A5F001B55CE /* LoginSliderViewUITests */,
 				9B543F161F4F1A5F001B55CE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				9B543F461F4F1A95001B55CE /* RegisterSliderView.swift */,
+				22452910232A196500510507 /* CustomSliderView.swift */,
 				9B543F181F4F1A5F001B55CE /* AppDelegate.swift */,
 				9B543F1A1F4F1A5F001B55CE /* ViewController.swift */,
 				9B543F1C1F4F1A5F001B55CE /* Main.storyboard */,
@@ -108,24 +103,6 @@
 				9B543F241F4F1A5F001B55CE /* Info.plist */,
 			);
 			path = LoginSliderView;
-			sourceTree = "<group>";
-		};
-		9B543F2C1F4F1A5F001B55CE /* LoginSliderViewTests */ = {
-			isa = PBXGroup;
-			children = (
-				9B543F2D1F4F1A5F001B55CE /* LoginSliderViewTests.swift */,
-				9B543F2F1F4F1A5F001B55CE /* Info.plist */,
-			);
-			path = LoginSliderViewTests;
-			sourceTree = "<group>";
-		};
-		9B543F371F4F1A5F001B55CE /* LoginSliderViewUITests */ = {
-			isa = PBXGroup;
-			children = (
-				9B543F381F4F1A5F001B55CE /* LoginSliderViewUITests.swift */,
-				9B543F3A1F4F1A5F001B55CE /* Info.plist */,
-			);
-			path = LoginSliderViewUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,7 +173,7 @@
 				TargetAttributes = {
 					9B543F141F4F1A5F001B55CE = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = M63VJAKNFU;
+						DevelopmentTeam = U9HAAL78T3;
 						ProvisioningStyle = Automatic;
 					};
 					9B543F281F4F1A5F001B55CE = {
@@ -216,6 +193,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -265,6 +243,7 @@
 			files = (
 				9B543F1B1F4F1A5F001B55CE /* ViewController.swift in Sources */,
 				9B543F191F4F1A5F001B55CE /* AppDelegate.swift in Sources */,
+				22452911232A196500510507 /* CustomSliderView.swift in Sources */,
 				9B543F471F4F1A95001B55CE /* RegisterSliderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,7 +252,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B543F2E1F4F1A5F001B55CE /* LoginSliderViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +259,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B543F391F4F1A5F001B55CE /* LoginSliderViewUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,12 +396,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = M63VJAKNFU;
+				DEVELOPMENT_TEAM = U9HAAL78T3;
 				INFOPLIST_FILE = LoginSliderView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = leeapp.com.LoginSliderView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -432,12 +409,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = M63VJAKNFU;
+				DEVELOPMENT_TEAM = U9HAAL78T3;
 				INFOPLIST_FILE = LoginSliderView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = leeapp.com.LoginSliderView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
