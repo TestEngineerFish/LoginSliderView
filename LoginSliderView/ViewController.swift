@@ -24,6 +24,7 @@ class ViewController: UIViewController, RegisterSliderViewDelegate {
     }
     
     @objc func creatAndHideRegisterSliderView() {
+        /*
         if let _sliderView = self.sliderView {
             UIView.animate(withDuration: 0.25, animations: {
                 _sliderView.alpha = 0
@@ -55,6 +56,7 @@ class ViewController: UIViewController, RegisterSliderViewDelegate {
                 }
             }
         }
+        */
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,7 +71,10 @@ class ViewController: UIViewController, RegisterSliderViewDelegate {
     }
     
     @IBAction func show(_ sender: UIButton) {
-        self.creatAndHideRegisterSliderView()
+//        self.creatAndHideRegisterSliderView()
+        let sliderView = CustomSliderView(frame: CGRect(x: 0, y: 0, width: 400, height: 360), type: .puzzle)
+        sliderView.center = self.view.center
+        self.view.addSubview(sliderView)
     }
 }
 

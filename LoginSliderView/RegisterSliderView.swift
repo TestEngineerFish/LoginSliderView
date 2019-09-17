@@ -14,6 +14,7 @@ protocol RegisterSliderViewDelegate {
 }
 
 class RegisterSliderView: UIView {
+    /*
     
     var delegate: RegisterSliderViewDelegate?
     
@@ -273,6 +274,7 @@ class RegisterSliderView: UIView {
         let newImage: UIImage = UIImage(cgImage: newImageRef, scale: scale, orientation: .up)
         return newImage
     }
+    */
 }
 
 
