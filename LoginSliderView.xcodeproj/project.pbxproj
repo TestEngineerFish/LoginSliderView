@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22452911232A196500510507 /* CustomSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22452910232A196500510507 /* CustomSliderView.swift */; };
+		22452911232A196500510507 /* RegisterSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22452910232A196500510507 /* RegisterSliderView.swift */; };
 		9B543F191F4F1A5F001B55CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B543F181F4F1A5F001B55CE /* AppDelegate.swift */; };
 		9B543F1B1F4F1A5F001B55CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B543F1A1F4F1A5F001B55CE /* ViewController.swift */; };
 		9B543F1E1F4F1A5F001B55CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B543F1C1F4F1A5F001B55CE /* Main.storyboard */; };
 		9B543F201F4F1A5F001B55CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B543F1F1F4F1A5F001B55CE /* Assets.xcassets */; };
 		9B543F231F4F1A5F001B55CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B543F211F4F1A5F001B55CE /* LaunchScreen.storyboard */; };
-		9B543F471F4F1A95001B55CE /* RegisterSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B543F461F4F1A95001B55CE /* RegisterSliderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		22452910232A196500510507 /* CustomSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSliderView.swift; sourceTree = "<group>"; };
+		22452910232A196500510507 /* RegisterSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSliderView.swift; sourceTree = "<group>"; };
 		9B543F151F4F1A5F001B55CE /* LoginSliderView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginSliderView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B543F181F4F1A5F001B55CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B543F1A1F4F1A5F001B55CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -44,7 +43,6 @@
 		9B543F241F4F1A5F001B55CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B543F291F4F1A5F001B55CE /* LoginSliderViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoginSliderViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B543F341F4F1A5F001B55CE /* LoginSliderViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoginSliderViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B543F461F4F1A95001B55CE /* RegisterSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterSliderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +91,7 @@
 		9B543F171F4F1A5F001B55CE /* LoginSliderView */ = {
 			isa = PBXGroup;
 			children = (
-				9B543F461F4F1A95001B55CE /* RegisterSliderView.swift */,
-				22452910232A196500510507 /* CustomSliderView.swift */,
+				22452910232A196500510507 /* RegisterSliderView.swift */,
 				9B543F181F4F1A5F001B55CE /* AppDelegate.swift */,
 				9B543F1A1F4F1A5F001B55CE /* ViewController.swift */,
 				9B543F1C1F4F1A5F001B55CE /* Main.storyboard */,
@@ -243,8 +240,7 @@
 			files = (
 				9B543F1B1F4F1A5F001B55CE /* ViewController.swift in Sources */,
 				9B543F191F4F1A5F001B55CE /* AppDelegate.swift in Sources */,
-				22452911232A196500510507 /* CustomSliderView.swift in Sources */,
-				9B543F471F4F1A95001B55CE /* RegisterSliderView.swift in Sources */,
+				22452911232A196500510507 /* RegisterSliderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

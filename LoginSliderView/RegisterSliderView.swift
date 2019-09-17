@@ -1,280 +1,336 @@
 //
-//  RegisterSliderView.swift
-//  PanningMan
+//  CustomSliderView.swift
+//  LoginSliderView
 //
-//  Created by 老沙-Sam on 2017/3/9.
-//  Copyright © 2017年 老沙. All rights reserved.
+//  Created by 沙庭宇 on 2019/9/12.
+//  Copyright © 2019 Lee. All rights reserved.
 //
 
 import UIKit
 
-protocol RegisterSliderViewDelegate {
-//    func sliderViewShouldRecovered() -> (Bool)  //滑到终点松开手指时是否应该还原
-    func sliderViewDidDragToEndPoint()          //滑条已经被滑到终点
+
+/// 校验模式
+enum SliderType: String {
+    case puzzle     = "拼图校验"
+    case randomChar = "字符校验(字符随机位置)"
+    case trimChar   = "字符校验(字符固定位置)"
+    case slider     = "滑动校验"
 }
 
 class RegisterSliderView: UIView {
-    /*
-    
-    var delegate: RegisterSliderViewDelegate?
-    
-    /// 展示图中阴影的位置
-    var cutPoint = CGPoint.zero
-    var cutSize  = CGSize(width: 50, height: 50)
-    
-    //定义一些常量
-    let padding: CGFloat = 10.0 //内边距
-    let appleBranchHeight: CGFloat = 15.0//苹果中间图片距离苹果顶部的高度
-    let sliderLength: CGFloat = 50.0//滑动栏上的按钮长、宽
-    let difference: CGFloat = 2.0//因为绿色苹果框图的问题，有一定的差值，与代码无关，图片没问题可设置为0
-    let resultViewHeight: CGFloat = 20.0//滑动失败后的提示区域高度
-    let appleWidth: CGFloat = 67.0//苹果碎片的宽度
-    let appleHeight: CGFloat = 72.0//苹果碎片的高度
-    let offset: CGFloat = 5.0//滑动后对比图的容错偏移量
-    
-    //展示图
-    let templateImage: UIImageView = {
-        let image: UIImageView = UIImageView(image: #imageLiteral(resourceName: "template"))
-        image.clipsToBounds = true
-        return image
-    }()
-    
-    //苹果拼图的View
-    fileprivate lazy var appleView: UIView = {
-        let view: UIView = UIView()
-        view.backgroundColor = UIColor.clear
+
+    // MARK: 基本数据
+    /// 默认边距
+    let margin       = CGFloat(10)
+    /// 滑动栏高度
+    let sliderHeight = CGFloat(20)
+    /// 滑动栏上滑块的大小
+    let thumbSize    = CGSize(width: 40, height: 40)
+    /// 拼图块🧩大小
+    let puzzleSize   = CGSize(width: 50, height: 50)
+    /// 拼图块随机位置
+    var randomPoint  = CGPoint.zero
+    /// 背景图宽度
+    var imageWidth: CGFloat {
+        get {
+            return self.contentView.frame.width - margin*2
+        }
+    }
+    /// 背景图高度
+    var imageHeight: CGFloat {
+        get {
+            let heightScale = CGFloat(0.6) // 背景图高/宽比
+            return imageWidth * heightScale
+        }
+    }
+
+    var type = SliderType.puzzle
+
+    // MARK: UI对象
+    let contentView     = UIView()
+    // TODO: 拼图
+    var imageView       = UIImageView()
+    var puzzleMaskLayer = CAShapeLayer()
+    var puzzleMoveView  = UIImageView()
+    var thumbImgView    = UIImageView()
+    var progressView    = UIView()
+    let sliderView      = UIView()
+    let refreshBtn      = UIButton()
+    lazy var resultView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: imageHeight, width: imageWidth, height: 20))
+        let icon = UIImageView(frame: CGRect(x: margin, y: 0, width: view.bounds.height, height: view.bounds.height))
+        let text = UILabel(frame: CGRect(x: icon.frame.maxX + 10, y: 0, width: imageWidth - icon.frame.maxX - 20, height: view.bounds.height))
+        view.addSubview(icon)
+        view.addSubview(text)
+        view.backgroundColor = UIColor.gray.withAlphaComponent(0.25)
+        icon.image = UIImage(named: "send_error")
+        let attrStr = NSMutableAttributedString(string: "验证失败: 手残了吧,别不承认!再试一下吧~", attributes: [NSAttributedString.Key.foregroundColor:UIColor.black])
+        attrStr.addAttributes([NSAttributedString.Key.foregroundColor:UIColor.red], range: NSRange(location: 0, length: 5))
+        text.attributedText = attrStr
+        text.font = UIFont.systemFont(ofSize: 12)
         return view
     }()
-    
-    //苹果拼图中的苹果icon
-    let appleImage: UIImageView = UIImageView(image: #imageLiteral(resourceName: "apple"))
-    
-    //苹果中间的图片碎片
-    fileprivate lazy var fragmentImage: UIImageView = {
-        let image: UIImageView = UIImageView()
-        image.layer.cornerRadius = 28
-        image.clipsToBounds = true
-        return image
-    }()
-    
-    //    模板图片上的阴影
-    var vacancyView: UIImageView = UIImageView(image: #imageLiteral(resourceName: "empty_apple"))
-    
-    //    滑动栏
-    fileprivate lazy var sliderView: UIView = {
-        let view: UIView = UIView()
-        view.backgroundColor = UIColor(red: 212/255, green: 212/255, blue: 212/255, alpha: 1.0)
-        view.layer.cornerRadius = 15
-        return view
-    }()
-    
-    //    滑动栏上的按钮
-    fileprivate lazy var sliderImgV: UIImageView = {
-        let sliderImgV: UIImageView = UIImageView(image: #imageLiteral(resourceName: "slide_button"))
-        sliderImgV.isUserInteractionEnabled = true
-        let pan: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.pan(pan:)))
-        sliderImgV.addGestureRecognizer(pan)
-        return sliderImgV
-    }()
-    
-    
-    fileprivate var imgCenter = CGPoint.zero
-    
-    //    滑动栏上的提示文案
-    fileprivate lazy var tipsLabel: UILabel = {
-        let tipsLabel: UILabel = UILabel()
-        tipsLabel.textAlignment = .center
-        tipsLabel.font = UIFont.systemFont(ofSize: 13.0)
-        tipsLabel.text = "拖动滑块将悬浮苹果正确拼合"
-        tipsLabel.textColor = UIColor.black
-        return tipsLabel
-    }()
-    
-    //    滑动结束后的结果展示
-    let resultView: UIView = {
-        let view: UIView = UIView()
-        view.backgroundColor = UIColor.clear
-        return view
-    }()
-    
-    let resultViewBackground: UIView =  {
-        let view: UIView = UIView()
-        view.backgroundColor = UIColor.black
-        view.alpha = 0.2
-        return view
-    }()
-    
-    let resultImg: UIImageView = UIImageView(image: #imageLiteral(resourceName: "send_error"))
-    
-    let resultText: UILabel = {
-        let text: UILabel  = UILabel()
-        text.font = UIFont.systemFont(ofSize: 11.0)
-        text.text = "验证失败："
-        text.textColor = UIColor.red
-        return text
-    }()
-    
-    let resultTips: UILabel = {
-        let text: UILabel = UILabel()
-        text.font = UIFont.systemFont(ofSize: 11.0)
-        text.text = "手残了吧，别不承认～Try again"
-        text.textColor = UIColor.black
-        return text
-    }()
-    
-    //    复写这个View的初始化方法
-    override init(frame: CGRect) {
+
+    init(frame: CGRect, type: SliderType) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.white
-        setupSubviews()
+        _initView()
+        self.type = type
+        setRandomPoint()
+        setSliderType(type)
+        setImage()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupSubviews()
+        fatalError("init(coder:) has not been implemented")
     }
-    
-    //    复写初始化布局方法，定义一些子控件的大小、位置
-    override func layoutSubviews() {
-        
-        super.layoutSubviews()
-        
-        self.templateImage.frame = CGRect(x: self.padding, y: self.padding, width: self.bounds.size.width - self.padding * 2, height: 185)
-        
-        location = self.randomLocation(with: self.templateImage, width: self.appleWidth, height: self.appleHeight)
-        
-        self.vacancyView.frame = location
-        
-        guard let uiImage: UIImage = self.templateImage.image, let cgImage: CGImage = uiImage.cgImage else {
-            return
+
+
+    /// 设置校验类型
+    ///
+    /// - Parameter type: 校验类型
+    func setSliderType(_ type: SliderType) {
+        self.contentView.subviews.forEach {$0.removeFromSuperview()}
+        switch type {
+        case .puzzle:
+            _initPuzzleView()
+        case .randomChar:
+            _initRandomChar()
+        case .trimChar:
+            _initTrimChar()
+        case .slider:
+            _initSliderView()
         }
-        self.fragmentImage.image = self.cutImage(image: cgImage, rect: CGRect(x: location.origin.x, y: location.origin.y + self.appleBranchHeight, width: location.size.width - self.difference, height: location.size.height - self.appleBranchHeight - self.difference))
-        
-        self.sliderView.frame = CGRect(x: self.templateImage.frame.origin.x, y: self.templateImage.frame.maxY + 25, width: self.templateImage.bounds.size.width, height: 30)
-        
-        self.sliderImgV.frame = CGRect(x: 15, y: (self.sliderView.bounds.size.height - self.sliderLength) / 2, width: self.sliderLength, height: self.sliderLength)
-        
-        self.appleView.frame = CGRect(x: self.sliderImgV.center.x - self.location.size.width / 2, y: self.location.origin.y, width: self.location.size.width, height: self.location.size.height)
-        
-        self.appleImage.frame = CGRect(x: 0, y: 0, width: self.appleView.bounds.size.width, height: self.appleView.bounds.size.height)
-        
-        self.fragmentImage.frame = CGRect(x: 0, y: self.appleBranchHeight, width: self.location.size.width - self.difference, height: self.location.size.height - self.appleBranchHeight - self.difference)
-        
-        self.tipsLabel.sizeToFit()
-        self.tipsLabel.frame = CGRect(x: (self.sliderView.bounds.width - self.tipsLabel.bounds.size.width) * 0.5, y: (self.sliderView.bounds.height - self.tipsLabel.bounds.size.height) * 0.5, width: self.tipsLabel.bounds.size.width, height: self.tipsLabel.bounds.size.height)
-        
-        self.resultView.frame = CGRect(x:0, y:self.templateImage.bounds.size.height, width: self.templateImage.bounds.size.width, height: self.resultViewHeight)
-        
-        self.resultViewBackground.frame = CGRect(x:0, y:0, width: self.resultView.bounds.size.width, height: self.resultView.bounds.size.height)
-        
-        self.resultImg.frame = CGRect(x:15, y:(self.resultView.bounds.size.height - 15) / 2, width: 15, height: 15)
-        
-        self.resultText.sizeToFit()
-        self.resultText.frame = CGRect(x:self.resultImg.frame.maxX + 5, y:(self.resultView.bounds.size.height - self.resultText.bounds.size.height) / 2, width: self.resultText.bounds.size.width, height: self.resultText.bounds.size.height)
-        
-        self.resultTips.sizeToFit()
-        self.resultTips.frame = CGRect(x:self.resultText.frame.maxX, y:(self.resultView.bounds.size.height - self.resultTips.bounds.size.height) / 2, width: self.resultTips.bounds.size.width, height: self.resultTips.bounds.size.height)
     }
-    
-    func setupSubviews() {
-        
-        self.addSubview(self.templateImage)
-        
-        self.addSubview(self.sliderView)
-        
-        self.appleView.addSubview(self.fragmentImage)
-        
-        self.appleView.addSubview(self.appleImage)
-        
-        self.sliderView.addSubview(self.tipsLabel)
-        
-        self.sliderView.addSubview(self.sliderImgV)
-        
-        self.templateImage.addSubview(vacancyView)
-        
-        self.templateImage.addSubview(self.appleView)
-        
-        self.templateImage.addSubview(self.resultView)
-        
-        self.resultView.addSubview(self.resultViewBackground)
-        
-        self.resultView.addSubview(self.resultImg)
-        
-        self.resultView.addSubview(self.resultText)
-        
-        self.resultView.addSubview(self.resultTips)
+
+    // MARK: set UI
+
+    /// 初始化容器视图
+    func _initView() {
+        self.addSubview(contentView)
+        self.addSubview(refreshBtn)
+        backgroundColor = UIColor.clear
+        contentView.frame = self.bounds
+        contentView.backgroundColor = UIColor.gray.withAlphaComponent(0.25)
+        refreshBtn.frame = CGRect(x: frame.maxX - 60, y: frame.maxY - 40, width: 30, height: 30)
+        refreshBtn.setImage(UIImage(named: "refresh"), for: .normal)
+        refreshBtn.titleLabel?.textColor = UIColor.orange
+        refreshBtn.addTarget(self, action: #selector(refresh(_:)), for: .touchUpInside)
     }
-    
-    @objc func pan(pan: UIPanGestureRecognizer) {
-        
-        let halfWidth: CGFloat = sliderImgV.frame.width * 0.5
-        let point: CGPoint = pan.translation(in: self)
-        if pan.state == .began {
-            imgCenter = pan.view!.center
-        }
-        
-        //point 滑动图片的中心坐标
-        sliderImgV.center.x = imgCenter.x + point.x
-        self.tipsLabel.isHidden = true
-        UIView.animate(withDuration: 0.1) {
-            self.appleView.center.x = self.sliderImgV.center.x
-        }
-        
-        if pan.state == .ended {
-            print("SliderImageV:\(appleView.frame.origin.x)  Location:\(self.location.origin.x)")
-            
-            if appleView.frame.origin.x > self.location.origin.x - self.offset && appleView.frame.origin.x < self.location.origin.x + self.offset {
-                perform(#selector(self.noticeDelegate))
-            } else {
-                UIView.animate(withDuration: 0.25, animations: {
-                    self.sliderImgV.center.x = halfWidth + 15
-                    self.appleView.center.x = self.sliderImgV.center.x
-                    self.tipsLabel.isHidden = false
-                    self.showAndHideResultView()
-                })
+
+    /// 初始化拼图View
+    func _initPuzzleView() {
+        imageView.frame       = CGRect(x: margin, y: margin, width: imageWidth, height: imageHeight)
+        puzzleMoveView.frame  = CGRect(x: margin, y: randomPoint.y, width: puzzleSize.width, height: puzzleSize.height)
+        puzzleMaskLayer.frame = CGRect(x: randomPoint.x, y: randomPoint.y, width: puzzleSize.width, height: puzzleSize.height)
+        thumbImgView.frame    = CGRect(x: puzzleMoveView.center.x - thumbSize.width/2, y: (sliderHeight - thumbSize.height)/2, width: thumbSize.width, height: thumbSize.height)
+        progressView.frame    = CGRect(x: 0, y: 0, width: thumbImgView.frame.midX, height: sliderHeight)
+        sliderView.frame      = CGRect(x: margin, y: imageView.frame.maxY + margin * 2, width: imageWidth, height: sliderHeight)
+
+        sliderView.addSubview(progressView)
+        sliderView.addSubview(thumbImgView)
+        imageView.layer.addSublayer(puzzleMaskLayer)
+        imageView.addSubview(puzzleMoveView)
+        self.contentView.addSubview(imageView)
+        self.contentView.addSubview(sliderView)
+
+        thumbImgView.image              = UIImage(named: "slide_button")
+        imageView.contentMode           = .scaleAspectFill
+        imageView.clipsToBounds         = true
+        sliderView.backgroundColor      = UIColor(red: 212/255, green: 212/255, blue: 212/255, alpha: 1.0)
+        progressView.backgroundColor    = UIColor.orange
+        sliderView.layer.cornerRadius   = sliderHeight/2
+        progressView.layer.cornerRadius = sliderHeight/2
+
+        thumbImgView.isUserInteractionEnabled = true
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(slidThumbView(sender:)))
+        thumbImgView.addGestureRecognizer(pan)
+    }
+
+    func _initRandomChar() {
+
+    }
+
+    func _initTrimChar() {
+
+    }
+
+    func _initSliderView() {
+
+    }
+
+    // MARK: bind data
+
+    /// 设置图片
+    func setImage() {
+        guard var image = UIImage(named: "template") else { return }
+        image = image.rescaleSize(CGSize(width: imageWidth, height: imageHeight))
+        self.imageView.image = image
+        // 有空时将绘制过程放在ImageView中的Draw函数中
+        UIGraphicsBeginImageContext(self.imageView.bounds.size)
+        let path = image.drawBezierPath(origin: randomPoint, size: puzzleSize)
+        UIGraphicsEndImageContext()
+        // 绘制完成后,需要修改被移动的拼图frame.因为绘制后的大小不一定等于初始大小
+        puzzleMoveView.frame = CGRect(origin: puzzleMoveView.frame.origin, size: path.bounds.size)
+
+        guard var partImage = self.imageView.image?.clipImage(rect: CGRect(origin: puzzleMaskLayer.frame.origin, size: path.bounds.size)) else { return }
+        partImage = partImage.clipPathImage(with: path) ?? partImage
+
+        puzzleMoveView.image        = partImage
+        puzzleMaskLayer.path        = path.cgPath
+        puzzleMaskLayer.strokeColor = UIColor.white.cgColor
+        puzzleMaskLayer.fillColor   = UIColor.gray.withAlphaComponent(0.5).cgColor
+    }
+
+    // TODO: Event
+
+    /// 滑动进度条的手势事件
+    ///
+    /// - Parameter sender: 滑动的手势对象
+    @objc func slidThumbView(sender: UIPanGestureRecognizer) {
+        let point = sender.translation(in: sliderView)
+        thumbImgView.transform   = CGAffineTransform(translationX: point.x, y: 0)
+        puzzleMoveView.transform = CGAffineTransform(translationX: point.x, y: 0)
+        progressView.layer.frame = CGRect(x: 0, y: 0, width: thumbImgView.frame.midX, height: self.sliderHeight)
+        if sender.state == UIGestureRecognizer.State.ended {
+            self.checkResult()
+            UIView.animate(withDuration: 0.15) {
+                self.thumbImgView.transform   = .identity
+                self.puzzleMoveView.transform = .identity
+                self.progressView.layer.frame = CGRect(x: 0, y: 0, width: self.thumbImgView.frame.midX, height: self.sliderHeight)
             }
         }
-        setNeedsDisplay()
     }
-    
-    //    通过验证后的事件
-    @objc func noticeDelegate() {
-        delegate?.sliderViewDidDragToEndPoint()
+
+    func checkResult() {
+        let xRange = NSRange(location: Int(self.puzzleMaskLayer.frame.origin.x) - 5, length: 10)
+        let isSuccess = xRange.contains(Int(self.puzzleMoveView.frame.origin.x))
+        self.showResult(isSuccess)
     }
-    
-    func showAndHideResultView() {
-        UIView.animate(withDuration: 0.25, animations: {
-            
-            self.resultView.frame = CGRect(x:0, y:self.templateImage.bounds.size.height - self.resultViewHeight, width: self.templateImage.bounds.size.width, height: self.resultViewHeight)
-        })
-        UIView.animate(withDuration: 0.25, delay: 1.5, animations: {
-            self.resultView.frame = CGRect(x:0, y:self.templateImage.bounds.size.height, width: self.templateImage.bounds.size.width, height: 0)
-        })
-    }
-    
-    /// 随机获取图片的位置
-    func randomPoint() -> CGPoint {
-        let randomX = CGFloat(arc4random() % UInt32(self.bounds.width/2) + UInt32(self.bounds.width/2 - cutSize.width))
-        let randomY = CGFloat(arc4random() % UInt32(self.bounds.height/2) + UInt32(self.bounds.height/2 - cutSize.height))
-        return CGPoint(x: randomX, y: randomY)
-    }
-    
-    ///    截取特定区域图片
-    func cutImage(image: CGImage, rect: CGRect) -> UIImage {
-        let scale : CGFloat = UIScreen.main.scale
-        let x: CGFloat = rect.origin.x * scale
-        let y: CGFloat = rect.origin.y * scale
-        let w: CGFloat = rect.size.width * scale
-        let h: CGFloat = rect.size.height * scale
-        let dianRect: CGRect = CGRect(x: x, y: y, width: w, height: h)
-        
-        guard let newImageRef: CGImage = image.cropping(to: dianRect) else {
-            return UIImage()
+
+    func showResult(_ isSuccess: Bool) {
+        if isSuccess {
+            removeFromSuperview()
+        } else {
+            self.imageView.addSubview(resultView)
+            UIView.animate(withDuration: 0.25, animations: {
+                self.resultView.transform = CGAffineTransform(translationX: 0, y: -20)
+            }) { (finish) in
+                UIView.animate(withDuration: 0.15, delay: 0.75, options: UIView.AnimationOptions.allowUserInteraction, animations: {
+                    self.resultView.transform = .identity
+                }, completion: nil)
+            }
         }
-        let newImage: UIImage = UIImage(cgImage: newImageRef, scale: scale, orientation: .up)
-        return newImage
     }
-    */
+
+    @objc func refresh(_ btn: UIButton) {
+        UIView.animate(withDuration: 0.25, animations: {
+            btn.transform = CGAffineTransform(rotationAngle: -.pi)
+        }) { (finish) in
+            if finish {
+                btn.transform = .identity
+            }
+        }
+        setRandomPoint()
+        setSliderType(type)
+        setImage()
+    }
+
+    // TODO: tools
+
+    /// 设置随机数
+    func setRandomPoint() {
+        let minX = imageWidth/2 - puzzleSize.width
+        let maxX = imageWidth - puzzleSize.width
+        let minY = imageHeight/2 - puzzleSize.height
+        let maxY = imageHeight - puzzleSize.height
+        randomPoint.x = CGFloat(arc4random() % UInt32(maxX - minX)) + minX
+        randomPoint.y = CGFloat(arc4random() % UInt32(maxY - minY)) + minY
+    }
 }
 
+extension UIImage {
 
+    /// 按尺寸截取图片
+    ///
+    /// - Parameter rect: 需要截取的位置
+    /// - Returns: 截取后的图片,不存在则返回nil
+    func clipImage(rect: CGRect) -> UIImage? {
+        let scale = self.scale
+        let realRect = CGRect(x: rect.origin.x * scale, y: rect.origin.y * scale, width: rect.size.width * scale, height: rect.size.height * scale)
+        guard let imageRef = self.cgImage?.cropping(to: realRect) else { return nil }
+        var partImage = UIImage(cgImage: imageRef)
+        partImage     = partImage.rescaleSize(rect.size)
+        return partImage
+    }
+
+    /// 调整图片大小
+    ///
+    /// - Parameter size: 需要调整后的尺寸
+    /// - Returns: 返回调整后的图片
+    func rescaleSize(_ size: CGSize) -> UIImage {
+        let rect = CGRect(origin: CGPoint.zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        self.draw(in: rect)
+        let resizeImg = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizeImg ?? self
+    }
+
+    /// 按照path路径剪切图片
+    ///
+    /// - Parameter path: 需要截图的路径
+    /// - Returns: 截取后的图片,不存在则返回nil
+    func clipPathImage(with path: UIBezierPath) -> UIImage? {
+        let originScale = self.size.width / self.size.height
+        let boxBounds   = path.bounds
+        let width       = boxBounds.size.width
+        let height      = width / originScale
+
+        UIGraphicsBeginImageContextWithOptions(boxBounds.size, false, UIScreen.main.scale)
+        let bitmap = UIGraphicsGetCurrentContext()
+
+        let newPath: UIBezierPath = path
+        newPath.apply(CGAffineTransform(translationX: -path.bounds.origin.x, y: -path.bounds.origin.y))
+        newPath.addClip()
+
+        bitmap?.translateBy(x: boxBounds.size.width / 2.0, y: boxBounds.size.height / 2.0)
+        bitmap?.scaleBy(x: 1.0, y: -1.0) // 改变内容大小比例
+        guard let _cgImage = self.cgImage else { return nil}
+        bitmap?.draw(_cgImage, in: CGRect(x: -width/2, y: -height/2, width: width, height: height))
+
+        let resultImg = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resultImg
+    }
+
+    /// 绘制拼图路径
+    ///
+    /// - Returns: 绘制完成的Path
+    func drawBezierPath(origin point: CGPoint, size: CGSize) -> UIBezierPath {
+        /// 贝塞尔绘制边上缺口的半径
+        let offsetW     = CGFloat(6)
+        /// 贝塞尔绘制突出小块的直径
+        let offsetH    = CGFloat(10)
+        let puzzleHalf = (size.width - offsetH)*0.5
+        let path       = UIBezierPath()
+
+        path.move(to: CGPoint(x: point.x, y: point.y + offsetH))
+        path.addLine(to: CGPoint(x: point.x + puzzleHalf - offsetW, y: point.y + offsetH))
+        path.addQuadCurve(to: CGPoint(x: point.x + puzzleHalf + offsetW, y: point.y + offsetH), controlPoint: CGPoint(x: point.x + puzzleHalf, y: point.y))
+        path.addLine(to: CGPoint(x: point.x + puzzleHalf*2, y: point.y + offsetH))
+
+        path.addLine(to: CGPoint(x: point.x + puzzleHalf*2, y: point.y + puzzleHalf + offsetH - offsetW))
+        path.addQuadCurve(to: CGPoint(x: point.x + puzzleHalf*2, y: point.y + puzzleHalf + offsetH + offsetW), controlPoint: CGPoint(x: point.x + puzzleHalf*2 + offsetH, y: point.y + puzzleHalf + offsetH))
+        path.addLine(to: CGPoint(x: point.x + puzzleHalf*2, y: point.y + puzzleHalf*2 + offsetH))
+
+        path.addLine(to: CGPoint(x: point.x + puzzleHalf + offsetW, y: point.y + puzzleHalf*2 + offsetH))
+        path.addQuadCurve(to: CGPoint(x: point.x + puzzleHalf - offsetW, y: point.y + puzzleHalf*2 + offsetH), controlPoint: CGPoint(x: point.x + puzzleHalf, y: point.y + puzzleHalf*2))
+        path.addLine(to: CGPoint(x: point.x, y: point.y + puzzleHalf*2 + offsetH))
+
+        path.addLine(to: CGPoint(x: point.x, y: point.y + puzzleHalf + offsetH + offsetW))
+        path.addQuadCurve(to: CGPoint(x: point.x, y: point.y + puzzleHalf + offsetH - offsetW), controlPoint: CGPoint(x: point.x + offsetH, y: point.y + puzzleHalf + offsetH))
+        path.addLine(to: CGPoint(x: point.x, y: point.y + offsetH))
+        path.stroke()
+        return path
+    }
+}
