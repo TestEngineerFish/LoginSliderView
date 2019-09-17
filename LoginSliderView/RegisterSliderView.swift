@@ -60,8 +60,8 @@ class RegisterSliderView: UIView {
     let refreshBtn      = UIButton()
     lazy var resultView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: imageHeight, width: imageWidth, height: 20))
-        let icon = UIImageView(frame: CGRect(x: margin, y: 0, width: view.bounds.height, height: view.bounds.height))
-        let text = UILabel(frame: CGRect(x: icon.frame.maxX + 10, y: 0, width: imageWidth - icon.frame.maxX - 20, height: view.bounds.height))
+        let icon = UIImageView(frame: CGRect(x: margin, y: 2.5, width: view.bounds.height - 5, height: view.bounds.height - 5))
+        let text = UILabel(frame: CGRect(x: icon.frame.maxX + 5, y: 0, width: imageWidth - icon.frame.maxX - 20, height: view.bounds.height))
         view.addSubview(icon)
         view.addSubview(text)
         view.backgroundColor = UIColor.gray.withAlphaComponent(0.25)
@@ -69,7 +69,7 @@ class RegisterSliderView: UIView {
         let attrStr = NSMutableAttributedString(string: "验证失败: 手残了吧,别不承认!再试一下吧~", attributes: [NSAttributedString.Key.foregroundColor:UIColor.black])
         attrStr.addAttributes([NSAttributedString.Key.foregroundColor:UIColor.red], range: NSRange(location: 0, length: 5))
         text.attributedText = attrStr
-        text.font = UIFont.systemFont(ofSize: 12)
+        text.font = UIFont.systemFont(ofSize: 11)
         return view
     }()
 
@@ -136,6 +136,14 @@ class RegisterSliderView: UIView {
         progressView.frame    = CGRect(x: 0, y: 0, width: thumbImgView.frame.midX, height: sliderHeight)
         sliderView.frame      = CGRect(x: margin, y: imageView.frame.maxY + margin * 2, width: imageWidth, height: sliderHeight)
         refreshBtn.frame      = CGRect(x: contentView.bounds.width - 45, y: contentView.bounds.height - 45, width: 30, height: 30)
+        sliderView.addSubview({
+            let label       = UILabel(frame: sliderView.bounds)
+            label.text      = "拖动滑块,将图片拼合完整"
+            label.textColor = UIColor.black.withAlphaComponent(0.6)
+            label.font      = UIFont.systemFont(ofSize: 11)
+            label.textAlignment = .center
+            return label
+        }())
 
         sliderView.addSubview(progressView)
         sliderView.addSubview(thumbImgView)
