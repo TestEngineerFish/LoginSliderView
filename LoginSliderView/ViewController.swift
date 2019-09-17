@@ -22,10 +22,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func show(_ sender: UIButton) {
-
-        let sliderView = RegisterSliderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 280), type: .puzzle)
-        sliderView.center = self.view.center
-        self.view.addSubview(sliderView)
+        RegisterSliderView.show(.puzzle) { (isSuccess) in
+            print(isSuccess)
+        }
     }
 }
 

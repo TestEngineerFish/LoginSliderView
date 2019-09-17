@@ -45,9 +45,11 @@ class RegisterSliderView: UIView {
     }
 
     var type = SliderType.puzzle
+    var completeBlock: ((Bool)->Void)?
 
     // MARK: UI对象
     let contentView     = UIView()
+    let shadowView      = UIView()
     // TODO: 拼图
     var imageView       = UIImageView()
     var puzzleMaskLayer = CAShapeLayer()
@@ -70,6 +72,12 @@ class RegisterSliderView: UIView {
         text.font = UIFont.systemFont(ofSize: 12)
         return view
     }()
+
+    class func show(_ type: SliderType, completeBlock block: ((Bool) -> Void)?) {
+        let view = RegisterSliderView(frame: UIScreen.main.bounds, type: type)
+        view.completeBlock = block
+        UIApplication.shared.keyWindow?.addSubview(view)
+    }
 
     init(frame: CGRect, type: SliderType) {
         super.init(frame: frame)
@@ -106,15 +114,17 @@ class RegisterSliderView: UIView {
 
     /// 初始化容器视图
     func _initView() {
-        self.addSubview(contentView)
-        self.addSubview(refreshBtn)
-        backgroundColor = UIColor.clear
-        contentView.frame = self.bounds
-        contentView.backgroundColor = UIColor.gray.withAlphaComponent(0.25)
-        refreshBtn.frame = CGRect(x: frame.maxX - 60, y: frame.maxY - 40, width: 30, height: 30)
-        refreshBtn.setImage(UIImage(named: "refresh"), for: .normal)
-        refreshBtn.titleLabel?.textColor = UIColor.orange
-        refreshBtn.addTarget(self, action: #selector(refresh(_:)), for: .touchUpInside)
+        addSubview(shadowView)
+        addSubview(contentView)
+        backgroundColor             = UIColor.clear
+        shadowView.frame            = self.bounds
+        contentView.frame           = CGRect(x: 0, y: 0, width: 300, height: 280)
+        contentView.center          = center
+        contentView.backgroundColor = UIColor.white
+        shadowView.backgroundColor  = UIColor.black.withAlphaComponent(0.15)
+        shadowView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(close))
+        shadowView.addGestureRecognizer(tap)
     }
 
     /// 初始化拼图View
@@ -125,22 +135,27 @@ class RegisterSliderView: UIView {
         thumbImgView.frame    = CGRect(x: puzzleMoveView.center.x - thumbSize.width/2, y: (sliderHeight - thumbSize.height)/2, width: thumbSize.width, height: thumbSize.height)
         progressView.frame    = CGRect(x: 0, y: 0, width: thumbImgView.frame.midX, height: sliderHeight)
         sliderView.frame      = CGRect(x: margin, y: imageView.frame.maxY + margin * 2, width: imageWidth, height: sliderHeight)
+        refreshBtn.frame      = CGRect(x: contentView.bounds.width - 45, y: contentView.bounds.height - 45, width: 30, height: 30)
 
         sliderView.addSubview(progressView)
         sliderView.addSubview(thumbImgView)
         imageView.layer.addSublayer(puzzleMaskLayer)
         imageView.addSubview(puzzleMoveView)
-        self.contentView.addSubview(imageView)
-        self.contentView.addSubview(sliderView)
+        contentView.addSubview(imageView)
+        contentView.addSubview(sliderView)
+        contentView.addSubview(refreshBtn)
 
-        thumbImgView.image              = UIImage(named: "slide_button")
-        imageView.contentMode           = .scaleAspectFill
-        imageView.clipsToBounds         = true
-        sliderView.backgroundColor      = UIColor(red: 212/255, green: 212/255, blue: 212/255, alpha: 1.0)
-        progressView.backgroundColor    = UIColor.orange
-        sliderView.layer.cornerRadius   = sliderHeight/2
-        progressView.layer.cornerRadius = sliderHeight/2
+        thumbImgView.image               = UIImage(named: "slide_button")
+        imageView.contentMode            = .scaleAspectFill
+        imageView.clipsToBounds          = true
+        sliderView.backgroundColor       = UIColor(red: 212/255, green: 212/255, blue: 212/255, alpha: 1.0)
+        progressView.backgroundColor     = UIColor.orange
+        sliderView.layer.cornerRadius    = sliderHeight/2
+        progressView.layer.cornerRadius  = sliderHeight/2
+        refreshBtn.titleLabel?.textColor = UIColor.orange
 
+        refreshBtn.setImage(UIImage(named: "refresh"), for: .normal)
+        refreshBtn.addTarget(self, action: #selector(refresh(_:)), for: .touchUpInside)
         thumbImgView.isUserInteractionEnabled = true
         let pan = UIPanGestureRecognizer(target: self, action: #selector(slidThumbView(sender:)))
         thumbImgView.addGestureRecognizer(pan)
@@ -208,8 +223,11 @@ class RegisterSliderView: UIView {
     }
 
     func showResult(_ isSuccess: Bool) {
+        if let block = completeBlock {
+            block(isSuccess)
+        }
         if isSuccess {
-            removeFromSuperview()
+            close()
         } else {
             self.imageView.addSubview(resultView)
             UIView.animate(withDuration: 0.25, animations: {
@@ -220,6 +238,10 @@ class RegisterSliderView: UIView {
                 }, completion: nil)
             }
         }
+    }
+
+    @objc func close() {
+        removeFromSuperview()
     }
 
     @objc func refresh(_ btn: UIButton) {
