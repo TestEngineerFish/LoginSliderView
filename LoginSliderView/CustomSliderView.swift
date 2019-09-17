@@ -77,10 +77,6 @@ class CustomSliderView: UIView {
         self.type = type
         setRandomPoint()
         setSliderType(type)
-    }
-
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
         setImage()
     }
 
@@ -170,7 +166,9 @@ class CustomSliderView: UIView {
         image = image.rescaleSize(CGSize(width: imageWidth, height: imageHeight))
         self.imageView.image = image
         // 有空时将绘制过程放在ImageView中的Draw函数中
+        UIGraphicsBeginImageContext(self.imageView.bounds.size)
         let path = image.drawBezierPath(origin: randomPoint, size: puzzleSize)
+        UIGraphicsEndImageContext()
         // 绘制完成后,需要修改被移动的拼图frame.因为绘制后的大小不一定等于初始大小
         puzzleMoveView.frame = CGRect(origin: puzzleMoveView.frame.origin, size: path.bounds.size)
 
@@ -247,13 +245,6 @@ class CustomSliderView: UIView {
         let maxY = imageHeight - puzzleSize.height
         randomPoint.x = CGFloat(arc4random() % UInt32(maxX - minX)) + minX
         randomPoint.y = CGFloat(arc4random() % UInt32(maxY - minY)) + minY
-    }
-}
-
-class ContentImageView: UIImageView {
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-
     }
 }
 
@@ -339,7 +330,6 @@ extension UIImage {
         path.addLine(to: CGPoint(x: point.x, y: point.y + puzzleHalf + offsetH + offsetW))
         path.addQuadCurve(to: CGPoint(x: point.x, y: point.y + puzzleHalf + offsetH - offsetW), controlPoint: CGPoint(x: point.x + offsetH, y: point.y + puzzleHalf + offsetH))
         path.addLine(to: CGPoint(x: point.x, y: point.y + offsetH))
-
         path.stroke()
         return path
     }
