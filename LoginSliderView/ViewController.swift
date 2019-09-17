@@ -72,7 +72,7 @@ class ViewController: UIViewController, RegisterSliderViewDelegate {
     
     @IBAction func show(_ sender: UIButton) {
 //        self.creatAndHideRegisterSliderView()
-        let sliderView = CustomSliderView(frame: CGRect(x: 0, y: 0, width: 400, height: 360), type: .puzzle)
+        let sliderView = CustomSliderView(frame: CGRect(x: 0, y: 0, width: 400, height: 330), type: .puzzle)
         sliderView.center = self.view.center
         self.view.addSubview(sliderView)
     }
