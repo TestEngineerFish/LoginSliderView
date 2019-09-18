@@ -10,11 +10,11 @@ import UIKit
 
 
 /// 校验模式
-enum SliderType: String {
-    case puzzle     = "拼图校验"
-    case randomChar = "字符校验(字符随机位置)"
-    case trimChar   = "字符校验(字符固定位置)"
-    case slider     = "滑动校验"
+enum SliderType: Int {
+    case puzzle     = 0 //"拼图校验"
+    case randomChar = 1 //"字符校验(字符随机位置)"
+    case trimChar   = 2 //"字符校验(字符固定位置)"
+    case slider     = 3 //"滑动校验"
 }
 
 class RegisterSliderView: UIView {

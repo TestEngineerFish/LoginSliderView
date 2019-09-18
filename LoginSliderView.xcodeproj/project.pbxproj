@@ -170,7 +170,7 @@
 				TargetAttributes = {
 					9B543F141F4F1A5F001B55CE = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = U9HAAL78T3;
+						DevelopmentTeam = ZUFNXAQBQM;
 						ProvisioningStyle = Automatic;
 					};
 					9B543F281F4F1A5F001B55CE = {
@@ -392,7 +392,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = U9HAAL78T3;
+				DEVELOPMENT_TEAM = ZUFNXAQBQM;
 				INFOPLIST_FILE = LoginSliderView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = leeapp.com.LoginSliderView;
@@ -405,7 +405,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = U9HAAL78T3;
+				DEVELOPMENT_TEAM = ZUFNXAQBQM;
 				INFOPLIST_FILE = LoginSliderView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = leeapp.com.LoginSliderView;
