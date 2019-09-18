@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func show(_ sender: UIButton) {
-        RegisterSliderView.show(.puzzle) { (isSuccess) in
+        RegisterSliderView.show(.randomChar) { (isSuccess) in
             print(isSuccess)
         }
     }
