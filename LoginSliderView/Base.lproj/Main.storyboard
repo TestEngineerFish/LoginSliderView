@@ -21,94 +21,86 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="k05-sB-OYw">
-                                <rect key="frame" x="37.5" y="183.5" width="300" height="300"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Oz-hk-LQ8">
+                                <rect key="frame" x="37" y="186.5" width="301" height="294"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1DR-R3-1QC">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bME-Ka-25S">
-                                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                                <color key="backgroundColor" red="0.26607332150677543" green="0.76195305585861206" blue="0.20719822068564797" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="GwU-uw-Xbz"/>
-                                                    <constraint firstAttribute="width" constant="150" id="jxg-VM-Yh5"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <inset key="contentEdgeInsets" minX="15" minY="5" maxX="15" maxY="5"/>
-                                                <state key="normal" title="拼图验证">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="show:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zKZ-cQ-pAN"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eqc-W0-4Fx">
-                                                <rect key="frame" x="150" y="0.0" width="150" height="150"/>
-                                                <color key="backgroundColor" red="0.94117647059999998" green="0.41337544779452701" blue="0.21728517308162212" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="max-aT-iFz"/>
-                                                    <constraint firstAttribute="width" constant="150" id="rWI-ZL-zeA"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <inset key="contentEdgeInsets" minX="15" minY="5" maxX="15" maxY="5"/>
-                                                <state key="normal" title="字符验证">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="show:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ulR-bk-nNV"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8dq-0V-uYt">
-                                        <rect key="frame" x="0.0" y="150" width="300" height="150"/>
-                                        <subviews>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tSk-bR-MTn">
-                                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                                <color key="backgroundColor" red="0.21486152508063613" green="0.58590224517768053" blue="0.96620899438858032" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="g2y-MQ-mpF"/>
-                                                    <constraint firstAttribute="width" constant="150" id="se8-8j-7M9"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <inset key="contentEdgeInsets" minX="15" minY="5" maxX="15" maxY="5"/>
-                                                <state key="normal" title="字符验证">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="show:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ivU-Jg-Jbl"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DI4-jO-eXH">
-                                                <rect key="frame" x="150" y="0.0" width="150" height="150"/>
-                                                <color key="backgroundColor" red="0.95140904188156128" green="0.68129623351842872" blue="0.29245090280145775" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="GnJ-9I-e44"/>
-                                                    <constraint firstAttribute="width" constant="150" id="K8d-Vf-sqN"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <inset key="contentEdgeInsets" minX="15" minY="5" maxX="15" maxY="5"/>
-                                                <state key="normal" title="滑动验证">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="show:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6PN-bi-1JP"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPU-P3-c2h">
+                                        <rect key="frame" x="0.0" y="0.0" width="301" height="60"/>
+                                        <color key="backgroundColor" red="0.94117647059999998" green="0.39607843139999999" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="8n5-RV-1mq"/>
+                                        </constraints>
+                                        <state key="normal" title="拼图验证">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="show:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jej-Dd-bae"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LB3-v2-MUU">
+                                        <rect key="frame" x="0.0" y="75" width="301" height="60"/>
+                                        <color key="backgroundColor" red="0.94117647059999998" green="0.39607843139999999" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="随机字符验证">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="show:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c3b-HV-kOy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="olp-SW-Jjm">
+                                        <rect key="frame" x="0.0" y="150" width="301" height="60"/>
+                                        <color key="backgroundColor" red="0.94117647059999998" green="0.39607843139999999" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="字符验证">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="show:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6xw-Os-Er0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehr-rX-Eez">
+                                        <rect key="frame" x="0.0" y="225" width="301" height="60"/>
+                                        <color key="backgroundColor" red="0.94117647059999998" green="0.39607843139999999" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="滑动解锁">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="show:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jed-BZ-MkG"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ehr-rX-Eez" firstAttribute="height" secondItem="TPU-P3-c2h" secondAttribute="height" id="0KD-CE-cW6"/>
+                                    <constraint firstItem="ehr-rX-Eez" firstAttribute="top" secondItem="olp-SW-Jjm" secondAttribute="bottom" constant="15" id="1YP-XX-ZVB"/>
+                                    <constraint firstItem="TPU-P3-c2h" firstAttribute="top" secondItem="4Oz-hk-LQ8" secondAttribute="top" id="4a1-6G-v2b"/>
+                                    <constraint firstItem="olp-SW-Jjm" firstAttribute="leading" secondItem="4Oz-hk-LQ8" secondAttribute="leading" id="AQH-JW-fBe"/>
+                                    <constraint firstAttribute="trailing" secondItem="LB3-v2-MUU" secondAttribute="trailing" id="EOb-YE-CTF"/>
+                                    <constraint firstAttribute="trailing" secondItem="TPU-P3-c2h" secondAttribute="trailing" id="K8Z-7l-Aog"/>
+                                    <constraint firstItem="olp-SW-Jjm" firstAttribute="height" secondItem="TPU-P3-c2h" secondAttribute="height" id="KPz-MG-ZTa"/>
+                                    <constraint firstItem="ehr-rX-Eez" firstAttribute="leading" secondItem="4Oz-hk-LQ8" secondAttribute="leading" id="Pdc-Xr-xSk"/>
+                                    <constraint firstItem="LB3-v2-MUU" firstAttribute="leading" secondItem="4Oz-hk-LQ8" secondAttribute="leading" id="SKz-yh-M7v"/>
+                                    <constraint firstItem="LB3-v2-MUU" firstAttribute="height" secondItem="TPU-P3-c2h" secondAttribute="height" id="YpC-f7-yDe"/>
+                                    <constraint firstAttribute="trailing" secondItem="ehr-rX-Eez" secondAttribute="trailing" id="bwg-le-sRw"/>
+                                    <constraint firstAttribute="trailing" secondItem="olp-SW-Jjm" secondAttribute="trailing" id="eSi-dR-wwc"/>
+                                    <constraint firstItem="LB3-v2-MUU" firstAttribute="top" secondItem="TPU-P3-c2h" secondAttribute="bottom" constant="15" id="fN0-dB-8y0"/>
+                                    <constraint firstItem="TPU-P3-c2h" firstAttribute="leading" secondItem="4Oz-hk-LQ8" secondAttribute="leading" id="lEA-Pq-ew6"/>
+                                    <constraint firstItem="olp-SW-Jjm" firstAttribute="top" secondItem="LB3-v2-MUU" secondAttribute="bottom" constant="15" id="t6q-ZX-tSq"/>
+                                    <constraint firstAttribute="bottom" secondItem="ehr-rX-Eez" secondAttribute="bottom" constant="9" id="uRy-MA-7w1"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="k05-sB-OYw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1wH-6w-wUT"/>
-                            <constraint firstItem="k05-sB-OYw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="hJL-24-Lav"/>
+                            <constraint firstItem="4Oz-hk-LQ8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2gt-Pq-IQj"/>
+                            <constraint firstItem="4Oz-hk-LQ8" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="E5b-xA-cDY"/>
+                            <constraint firstItem="TPU-P3-c2h" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" constant="1" id="cjl-FF-h6t"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="stackView" destination="k05-sB-OYw" id="NyV-XU-aFL"/>
+                        <outlet property="charButton" destination="olp-SW-Jjm" id="dhJ-X1-Rqn"/>
+                        <outlet property="puzzleButton" destination="TPU-P3-c2h" id="dLZ-SE-V83"/>
+                        <outlet property="randomCharButton" destination="LB3-v2-MUU" id="LfQ-dJ-aDN"/>
+                        <outlet property="sliderButton" destination="ehr-rX-Eez" id="AMN-ss-tWt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
