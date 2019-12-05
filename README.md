@@ -7,13 +7,13 @@ Guide gif
 
 使用步骤
 #
-由于具体约束都在RegisterSliderView中已设置，使用相当简单，只需要调用show类函数即可：<br>
+由于具体约束都在 VerifyView.swift 中已设置，使用相当简单，只需要调用show类函数即可：<br>
 
 >闭包是滑动后的事件回调<br>
 
 >>
 ```swift
-RegisterSliderView.show(.puzzle) { (isSuccess) in
+VerifyView.show(.puzzle) { (isSuccess) in
    print(isSuccess)
 }
 ```
